@@ -25,6 +25,8 @@ public class logicScript : MonoBehaviour
     [ContextMenu("gameOver")]
     public void gameOver()
     {
+        playerScore = 0;
+        scoreText.text = playerScore.ToString();
         gameOverScreen.SetActive(true);
         scrText.SetActive(false);
     }
