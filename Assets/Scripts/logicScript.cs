@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class logicScript : MonoBehaviour
 {
-    public int playerScore;
+    static public int playerScore;
     public Text scoreText;
     public GameObject scrText;
     public GameObject gameOverScreen;

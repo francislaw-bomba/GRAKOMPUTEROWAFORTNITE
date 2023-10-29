@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float speed = 4;
+    public float playerSpeed = 4f;
     public logicScript logic;
     public bool isAlive = true;
     public SpriteRenderer spriteRenderer;
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         if (isAlive == true)
         {
             Vector3 playerInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
-            transform.position = transform.position + playerInput.normalized * speed * Time.deltaTime;
+            transform.position = transform.position + playerInput.normalized * playerSpeed * Time.deltaTime;
         }
 
         if (isAlive == true && Input.GetKeyDown(KeyCode.W) && pauseMenu.isPaused == false)
