@@ -7,11 +7,17 @@ public class bulletUp : MonoBehaviour
     private float speed = 15; 
     private Rigidbody2D rb;
     public GameObject bullet;
+    private Vector3 mousePos;
+    private Camera mainCam;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.up * speed;
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 kierunek = mousePos - transform.position;
+        rb.velocity = new Vector2(kierunek.x, kierunek.y).normalized * speed;
     }
 
     // Update is called once per frame

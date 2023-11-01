@@ -25,22 +25,5 @@ public class PlayerMovement : MonoBehaviour
             Vector3 playerInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
             transform.position = transform.position + playerInput.normalized * playerSpeed * Time.deltaTime;
         }
-
-        if (isAlive == true && Input.GetKeyDown(KeyCode.W) && pauseMenu.isPaused == false)
-        {
-            spriteRenderer.sprite = lookUp;
-        }
-        if (isAlive == true && Input.GetKeyDown(KeyCode.S) && pauseMenu.isPaused == false)
-        {
-            spriteRenderer.sprite = lookDown;
-        }
-        if (isAlive == true && Input.GetKeyDown(KeyCode.D) && pauseMenu.isPaused == false)
-        {
-            spriteRenderer.sprite = lookRight;
-        }
-        if (isAlive == true && Input.GetKeyDown(KeyCode.A) && pauseMenu.isPaused == false)
-        {
-            spriteRenderer.sprite = lookLeft;
-        }
     }
 }
