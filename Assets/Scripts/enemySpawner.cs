@@ -4,42 +4,32 @@ using UnityEngine;
 
 public class enemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab; 
-    public Camera mainCamera; 
-    public float spawnDelay = 2.0f; 
-    public float spawnAreaWidth = 20.0f; 
-    public float spawnAreaHeight = 15.0f;
-    public PlayerMovement player;
+    public GameObject zombie;
+    public Camera cam;
     private float nextSpawnTime = 0.0f;
-
+    public float spawnDelay = 2.0f;
+    public PlayerMovement player;
+    // Use this for initialization
     void Start()
     {
+        cam = Camera.main;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        mainCamera = Camera.main; 
     }
 
+    // Update is called once per frame
     void Update()
     {
         if (Time.time >= nextSpawnTime && player.isAlive == true)
         {
-            SpawnEnemy();
+            spawnEnemy();
             nextSpawnTime = Time.time + spawnDelay;
         }
     }
 
-    void SpawnEnemy()
+    private void spawnEnemy()
     {
-        float cameraHeight = 2f * mainCamera.orthographicSize;
-        float cameraWidth = cameraHeight * mainCamera.aspect;
-
-        float xMin = mainCamera.transform.position.x - cameraWidth - spawnAreaWidth / 2;
-        float xMax = mainCamera.transform.position.x + cameraWidth + spawnAreaWidth / 2;
-        float yMin = mainCamera.transform.position.y - cameraHeight - spawnAreaHeight / 2;
-        float yMax = mainCamera.transform.position.y + cameraHeight + spawnAreaHeight / 2;
-
-        float spawnX = Random.Range(xMin, xMax);
-        float spawnY = Random.Range(yMin, yMax);
-
-        Instantiate(enemyPrefab, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
+        float height = cam.orthographicSize + 5;
+        float width = cam.orthographicSize * cam.aspect + 10;
+        Instantiate(zombie, new Vector3(cam.transform.position.x + Random.Range(-width, width), cam.transform.position.z + height, 1 + Random.Range(10, 30)), Quaternion.identity);
     }
 }

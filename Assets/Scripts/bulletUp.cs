@@ -32,5 +32,10 @@ public class bulletUp : MonoBehaviour
         {
             Destroy(bullet);
         }
+
+        if (other.CompareTag("Environment"))
+        {
+            Destroy(bullet);
+        }
     }
 }

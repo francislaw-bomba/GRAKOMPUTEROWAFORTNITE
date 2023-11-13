@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class enemyController : MonoBehaviour
 {
@@ -36,7 +37,6 @@ public class enemyController : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            Debug.Log("dead");
             Destroy(enemy);
             logic.gameOver();
             playerMovement.isAlive = false;

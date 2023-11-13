@@ -6,17 +6,22 @@ public class ShootingScript : MonoBehaviour
 {
     public GameObject bullet;
     public Transform bulletSpawnPoint;
-    private int fireRate;
-    private int fireRateCounter;
+    public Transform rifleBulletSpawnPoint;
+    private int pistolFireRate;
+    private int pistolFireRateCounter;
+    private int rifleFireRate;
+    private int riflelFireRateCounter;
     public PlayerMovement player;
     private Vector3 mousePos;
     public Camera kamera;
+    public int weaponUsed = 0; // 0 = pistol, 1 = rifle
 
     void Start()
     {
         kamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        fireRate = 30;
+        pistolFireRate = 30;
+        rifleFireRate = 10;
     }
 
     // Update is called once per frame
@@ -30,12 +35,19 @@ public class ShootingScript : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, rotZ);
         }
 
-        if (Input.GetMouseButtonDown(0) && player.isAlive == true && pauseMenu.isPaused == false && fireRateCounter >= fireRate)
+        if (Input.GetMouseButtonDown(0) && player.isAlive == true && pauseMenu.isPaused == false && pistolFireRateCounter >= pistolFireRate && weaponUsed == 0) 
         {
             Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
-            fireRateCounter = 0;
+            pistolFireRateCounter = 0;
         }
 
-        fireRateCounter++;
+        if (Input.GetMouseButton(0) && player.isAlive == true && pauseMenu.isPaused == false && riflelFireRateCounter >= rifleFireRate && weaponUsed == 1)
+        {
+            Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            riflelFireRateCounter = 0;
+        }
+
+        pistolFireRateCounter++;
+        riflelFireRateCounter++;
     }
 }
