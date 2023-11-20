@@ -11,13 +11,11 @@ public class bulletUp : MonoBehaviour
     private Camera mainCam;
     public Transform player;
     private ShootingScript shootingScript;
-    public float bulletSpread;
+    public static float bulletSpread = 1.2f;
 
     // Start is called before the first frame update
     void Start()
     {
-        bulletSpread = 1.2f;
-
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();

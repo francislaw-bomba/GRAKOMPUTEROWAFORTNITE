@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float playerSpeed = 3.5f;
+    public static float playerSpeed = 3.3f;
     public logicScript logic;
     public bool isAlive = true;
     public SpriteRenderer spriteRenderer;

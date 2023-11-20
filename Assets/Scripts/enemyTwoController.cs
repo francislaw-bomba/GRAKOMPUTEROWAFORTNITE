@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyController : MonoBehaviour
+public class enemyTwoController : MonoBehaviour
 {
-    private float speed = 5.6f;
+    private float speed = 5.0f;
     public Transform target;
     public GameObject enemy;
     public logicScript logic;
     public PlayerMovement playerMovement;
+    private int enemyHealth = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -25,14 +26,19 @@ public class enemyController : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, transform.position.y, 1.0f);
         transform.up = Vector2.MoveTowards(transform.up, target.transform.position, speed * Time.deltaTime);
+
+        if (enemyHealth <= 0)
+        {
+            logic.addScore(50);
+            Destroy(enemy);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Bullet"))
         {
-            logic.addScore(10);
-            Destroy(enemy);
+            enemyHealth = enemyHealth - 1;
         }
 
         if (other.CompareTag("Player"))
