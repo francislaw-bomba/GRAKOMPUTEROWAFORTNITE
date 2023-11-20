@@ -11,6 +11,10 @@ public class itemManager : MonoBehaviour
     public ShootingScript shootingScript;
     public GameObject cartiButton;
     public GameObject rifleButton;
+    public Sprite playerShotgun;
+    public GameObject shotgunButton;
+    public Sprite playerDP;
+    public GameObject doublePistolsButton;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +27,7 @@ public class itemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 
     public void buyCarti()
@@ -45,6 +49,27 @@ public class itemManager : MonoBehaviour
             shootingScript.weaponUsed = 1;
             Destroy(rifleButton);
         }
-}
+    }
+    public void buyShotgun()
+    {
+        if (logicScript.playerScore >= 400)
+        {
+            logic.addScore(-400);
+            playerSprite.sprite = playerShotgun;
+            shootingScript.weaponUsed = 2;
+            Destroy(shotgunButton);
+        }
 
+    }
+    public void buyDoublePistols()
+    {
+        if (logicScript.playerScore >= 300)
+        {
+            logic.addScore(-300);
+            playerSprite.sprite = playerDP;
+            shootingScript.weaponUsed = 3;
+            Destroy(doublePistolsButton);
+        }
+
+    }
 }

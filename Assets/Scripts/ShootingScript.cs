@@ -10,18 +10,23 @@ public class ShootingScript : MonoBehaviour
     private int pistolFireRate;
     private int pistolFireRateCounter;
     private int rifleFireRate;
-    private int riflelFireRateCounter;
+    private int rifleFireRateCounter;
+    private int shotgunFireRate;
+    private int shotgunFireRateCounter;
+    public Transform doubleBulletSpawnPoint1;
+    public Transform doubleBulletSpawnPoint2;
     public PlayerMovement player;
     private Vector3 mousePos;
     public Camera kamera;
-    public int weaponUsed = 0; // 0 = pistol, 1 = rifle
+    public int weaponUsed = 0; // 0 = pistol, 1 = rifle, 2 = shotgun, 3 = double pistols
 
     void Start()
     {
         kamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        pistolFireRate = 30;
+        pistolFireRate = 25;
         rifleFireRate = 10;
+        shotgunFireRate = 40;
     }
 
     // Update is called once per frame
@@ -41,13 +46,30 @@ public class ShootingScript : MonoBehaviour
             pistolFireRateCounter = 0;
         }
 
-        if (Input.GetMouseButton(0) && player.isAlive == true && pauseMenu.isPaused == false && riflelFireRateCounter >= rifleFireRate && weaponUsed == 1)
+        if (Input.GetMouseButton(0) && player.isAlive == true && pauseMenu.isPaused == false && rifleFireRateCounter >= rifleFireRate && weaponUsed == 1)
         {
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
-            riflelFireRateCounter = 0;
+            rifleFireRateCounter = 0;
+        }
+
+        if (Input.GetMouseButtonDown(0) && player.isAlive == true && pauseMenu.isPaused == false && shotgunFireRateCounter >= shotgunFireRate && weaponUsed == 2)
+        {
+            Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            shotgunFireRateCounter = 0;
+        }
+
+        if (Input.GetMouseButtonDown(0) && player.isAlive == true && pauseMenu.isPaused == false && pistolFireRateCounter >= pistolFireRate && weaponUsed == 3)
+        {
+            Instantiate(bullet, doubleBulletSpawnPoint1.position, transform.rotation);
+            Instantiate(bullet, doubleBulletSpawnPoint2.position, transform.rotation);
+            pistolFireRateCounter = 0;
         }
 
         pistolFireRateCounter++;
-        riflelFireRateCounter++;
+        rifleFireRateCounter++;
+        shotgunFireRateCounter++;
     }
 }

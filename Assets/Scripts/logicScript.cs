@@ -30,4 +30,11 @@ public class logicScript : MonoBehaviour
         gameOverScreen.SetActive(true);
         scrText.SetActive(false);
     }
+
+    [ContextMenu("FREESIANO")]
+    public void freeSiano()
+    {
+        playerScore = playerScore + 100000;
+        scoreText.text = playerScore.ToString();
+    }
 }
