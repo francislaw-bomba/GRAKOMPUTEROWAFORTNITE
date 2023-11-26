@@ -11,6 +11,8 @@ public class enemyTwoController : MonoBehaviour
     public logicScript logic;
     public PlayerMovement playerMovement;
     private int enemyHealth = 5;
+    public GameObject blood;
+    public GameObject smallBlood;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class enemyTwoController : MonoBehaviour
         if (enemyHealth <= 0)
         {
             logic.addScore(50);
+            Instantiate(blood, transform.position, Quaternion.identity);
             Destroy(enemy);
         }
     }
@@ -39,6 +42,8 @@ public class enemyTwoController : MonoBehaviour
         if (other.CompareTag("Bullet"))
         {
             enemyHealth = enemyHealth - 1;
+
+            Instantiate(smallBlood, transform.position, Quaternion.identity);
         }
 
         if (other.CompareTag("Player"))
@@ -46,6 +51,7 @@ public class enemyTwoController : MonoBehaviour
             Destroy(enemy);
             logic.gameOver();
             playerMovement.isAlive = false;
+            Instantiate(blood, target.transform.position, Quaternion.identity);
         }
     }
 }

@@ -92,20 +92,18 @@ public class itemManager : MonoBehaviour
                 bulletUp.bulletSpread = bulletUp.bulletSpread - 0.4f;
             }
 
-            if (accuracyPrice == 500)
-            {
+        switch (accuracyPrice)
+        {
+            case 500:
                 accuracyButtonImage.sprite = accuracyButtonSprite2;
-            }
-
-            if (accuracyPrice == 750)
-            {
+                break;
+            case 750:
                 accuracyButtonImage.sprite = accuracyButtonSprite3;
-            }  
-            
-            if (accuracyPrice > 750)
-            {
+                break;
+            case 1000:
                 Destroy(accuracyButton);
-            }
+                break;
+        }
     }
     public void speedUpgrade()
     {
@@ -116,19 +114,17 @@ public class itemManager : MonoBehaviour
             PlayerMovement.playerSpeed = PlayerMovement.playerSpeed + 0.3f;
         }
 
-        if (speedPrice == 500)
+        switch (speedPrice)
         {
-            speedButtonImage.sprite = speedButtonSprite2;
-        }
-
-        if (speedPrice == 750)
-        {
-            speedButtonImage.sprite = speedButtonSprite3;
-        }
-
-        if (speedPrice > 750)
-        {
-            Destroy(speedButton);
+            case 500:
+                speedButtonImage.sprite = speedButtonSprite2;
+                break;
+            case 750:
+                speedButtonImage.sprite = speedButtonSprite3;
+                break;
+            case 1000:
+                Destroy(speedButton);
+                break;
         }
     }
 }

@@ -10,6 +10,7 @@ public class enemyController : MonoBehaviour
     public GameObject enemy;
     public logicScript logic;
     public PlayerMovement playerMovement;
+    public GameObject blood;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class enemyController : MonoBehaviour
         {
             logic.addScore(10);
             Destroy(enemy);
+            Instantiate(blood, transform.position, Quaternion.identity);
         }
 
         if (other.CompareTag("Player"))
@@ -40,6 +42,7 @@ public class enemyController : MonoBehaviour
             Destroy(enemy);
             logic.gameOver();
             playerMovement.isAlive = false;
+            Instantiate(blood, target.transform.position, Quaternion.identity);
         }
     }
 }

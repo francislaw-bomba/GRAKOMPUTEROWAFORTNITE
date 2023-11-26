@@ -118,3 +118,5 @@ MonoBehaviour:
   enemy: {fileID: 8456714222129868659}
   logic: {fileID: 0}
   playerMovement: {fileID: 0}
+  blood: {fileID: 2062289437456349375, guid: ccae96d293ee89c48916b80da5767d80, type: 3}
+  smallBlood: {fileID: 9154098521655561159, guid: a7d3d4edf1b8b20438234bbc6794d398, type: 3}

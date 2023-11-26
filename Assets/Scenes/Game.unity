@@ -3074,9 +3074,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombie: {fileID: 3448029776733131781, guid: 9e29b7f3031c95e4b8ac99302e4e8271, type: 3}
+  zombie2: {fileID: 8456714222129868659, guid: 24749f0f58b7717468940e785ec56756, type: 3}
   cam: {fileID: 519420031}
   spawnDelay: 2
   player: {fileID: 0}
+  enemyChanceMax: 7
 --- !u!4 &2125551202
 Transform:
   m_ObjectHideFlags: 0

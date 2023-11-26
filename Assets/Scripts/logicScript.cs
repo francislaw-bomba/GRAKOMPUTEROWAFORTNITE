@@ -10,7 +10,7 @@ public class logicScript : MonoBehaviour
     public Text scoreText;
     public GameObject scrText;
     public GameObject gameOverScreen;
-   
+
     public void addScore(int x)
     {
         playerScore = playerScore + x;
