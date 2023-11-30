@@ -29,7 +29,7 @@ public class bulletUp : MonoBehaviour
         }
         if (shootingScript.weaponUsed == 2)
         {
-            rb.velocity = new Vector2(kierunek.x + Random.Range(-1, 1), kierunek.y + Random.Range(-1, 1)).normalized * speed;
+            rb.velocity = new Vector2(kierunek.x + Random.Range(-2.5f, 2.5f), kierunek.y + Random.Range(-2.5f, 2.5f)).normalized * speed;
         }
     }
 

@@ -8,10 +8,11 @@ public class enemySpawner : MonoBehaviour
     public GameObject zombie2;
     public Camera cam;
     private float nextSpawnTime = 0f;
-    public float spawnDelay = 2f;
+    public float spawnDelay = 3;
     public PlayerMovement player;
     public int enemyChanceMax = 10;
     private int enemiesSpawned;
+    public List<int> numbers = new List<int>();
 
     void Start()
     {
@@ -19,10 +20,10 @@ public class enemySpawner : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
-   
+
     void Update()
     {
-        int enemyChance = Random.Range(0, enemyChanceMax);   
+        int enemyChance = Random.Range(0, enemyChanceMax);
 
         if (Time.time >= nextSpawnTime && player.isAlive == true)
         {
@@ -47,35 +48,53 @@ public class enemySpawner : MonoBehaviour
                 break;
             case 15:
                 enemyChanceMax = 9;
-                spawnDelay = 1.85f;
+                spawnDelay = 2.5f;
                 break;
             case 40:
                 enemyChanceMax = 8;
-                spawnDelay = 1.7f;
+                spawnDelay = 2.3f;
                 break;
             case 60:
                 enemyChanceMax = 7;
-                spawnDelay = 1.6f;
+                spawnDelay = 2.15f;
                 break;
             case 90:
                 enemyChanceMax = 6;
-                spawnDelay = 1.4f;
+                spawnDelay = 1.8f;
                 break;
             case 120:
                 enemyChanceMax = 5;
-                spawnDelay = 1.2f;
+                spawnDelay = 1.6f;
                 break;
             case 150:
                 enemyChanceMax = 4;
-                spawnDelay = 1.1f;
+                spawnDelay = 1.3f;
                 break;
         }
     }
 
     private void spawnEnemy(GameObject x)
     {
-        float height = Random.Range(35, 60);
-        float width = Random.Range(35, 60);
-        Instantiate(x, new Vector3(cam.transform.position.x + Random.Range(-width, width), cam.transform.position.y + Random.Range(-height, height), 1), Quaternion.identity);
+        Instantiate(x, new Vector3(cam.transform.position.x + getNumbers(), cam.transform.position.y + getNumbers(), 1), Quaternion.identity);
+    }
+
+    public int getNumbers()
+    {
+        if (numbers.Count < 50)
+        {
+            int x = Random.Range(-40, -15);
+            int y = Random.Range(15, 40);
+            numbers.Add(x);
+            numbers.Add(y);
+            int randomIndex = Random.Range(0, numbers.Count);
+            int number = numbers[randomIndex];
+            return number;
+        }
+        else
+        {
+            int randomIndex = Random.Range(0, numbers.Count);
+            int number = numbers[randomIndex];
+            return number;
+        }
     }
 }

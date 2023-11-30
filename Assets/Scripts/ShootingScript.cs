@@ -18,6 +18,8 @@ public class ShootingScript : MonoBehaviour
     public PlayerMovement player;
     private Vector3 mousePos;
     public Camera kamera;
+    public GameObject bulletBoom;
+    public GameObject bulletBoom2;
     public int weaponUsed = 0; // 0 = pistol, 1 = rifle, 2 = shotgun, 3 = double pistols
 
     void Start()
@@ -43,12 +45,14 @@ public class ShootingScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && player.isAlive == true && pauseMenu.isPaused == false && pistolFireRateCounter >= pistolFireRate && weaponUsed == 0) 
         {
             Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
+            Instantiate(bulletBoom, bulletSpawnPoint.position, transform.rotation);
             pistolFireRateCounter = 0;
         }
 
         if (Input.GetMouseButton(0) && player.isAlive == true && pauseMenu.isPaused == false && rifleFireRateCounter >= rifleFireRate && weaponUsed == 1)
         {
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            Instantiate(bulletBoom, rifleBulletSpawnPoint.position, transform.rotation);
             rifleFireRateCounter = 0;
         }
 
@@ -58,6 +62,7 @@ public class ShootingScript : MonoBehaviour
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            Instantiate(bulletBoom, rifleBulletSpawnPoint.position, transform.rotation);
             shotgunFireRateCounter = 0;
         }
 
@@ -65,6 +70,8 @@ public class ShootingScript : MonoBehaviour
         {
             Instantiate(bullet, doubleBulletSpawnPoint1.position, transform.rotation);
             Instantiate(bullet, doubleBulletSpawnPoint2.position, transform.rotation);
+            Instantiate(bulletBoom, doubleBulletSpawnPoint1.position, transform.rotation);
+            Instantiate(bulletBoom2, doubleBulletSpawnPoint2.position, transform.rotation);
             pistolFireRateCounter = 0;
         }
 

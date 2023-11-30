@@ -8,6 +8,10 @@ TagManager:
   - Enemy
   - Bullet
   - Environment
+  - pistolbutton
+  - riflebutton
+  - shotgunbutton
+  - dpbutton
   layers:
   - Default
   - TransparentFX

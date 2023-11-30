@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class enemyTwoController : MonoBehaviour
 {
-    private float speed = 5.0f;
+    private float speed = 4.8f;
     public Transform target;
     public GameObject enemy;
     public logicScript logic;
@@ -13,7 +13,13 @@ public class enemyTwoController : MonoBehaviour
     private int enemyHealth = 5;
     public GameObject blood;
     public GameObject smallBlood;
+    private bool isStunned = false;
+    private enemyHealthBar healthBar;
 
+    private void Awake()
+    {
+        healthBar = GetComponentInChildren<enemyHealthBar>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +31,12 @@ public class enemyTwoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x, transform.position.y, 1.0f);
-        transform.up = Vector2.MoveTowards(transform.up, target.transform.position, speed * Time.deltaTime);
+        if (isStunned == false)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, transform.position.y, 1.0f);
+            transform.up = Vector2.MoveTowards(transform.up, target.transform.position, speed * Time.deltaTime);
+        }
 
         if (enemyHealth <= 0)
         {
@@ -42,7 +51,8 @@ public class enemyTwoController : MonoBehaviour
         if (other.CompareTag("Bullet"))
         {
             enemyHealth = enemyHealth - 1;
-
+            healthBar.updateHealthBar(enemyHealth, 5);
+            Stun();
             Instantiate(smallBlood, transform.position, Quaternion.identity);
         }
 
@@ -53,5 +63,15 @@ public class enemyTwoController : MonoBehaviour
             playerMovement.isAlive = false;
             Instantiate(blood, target.transform.position, Quaternion.identity);
         }
+    }
+
+    public void Stun()
+    {
+        isStunned = true;
+        Invoke("unStun", 0.1f);
+    }
+    public void unStun()
+    {
+        isStunned = false;
     }
 }

@@ -8,10 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public logicScript logic;
     public bool isAlive = true;
     public SpriteRenderer spriteRenderer;
-    public Sprite lookDown;
-    public Sprite lookUp;
     public Sprite lookRight;
-    public Sprite lookLeft;
+
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();

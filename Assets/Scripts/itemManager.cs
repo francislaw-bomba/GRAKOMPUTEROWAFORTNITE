@@ -5,27 +5,41 @@ using UnityEngine.UI;
 
 public class itemManager : MonoBehaviour
 {
-    public GameObject carti;
+    public Transform shop;
+
     public logicScript logic;
     public SpriteRenderer playerSprite;
     public Sprite playerRifle;
     public ShootingScript shootingScript;
-    public GameObject cartiButton;
     public GameObject rifleButton;
     public Sprite playerShotgun;
     public GameObject shotgunButton;
     public Sprite playerDP;
     public GameObject doublePistolsButton;
+    public Sprite playerPistol;
+
     public Image accuracyButtonImage;
     public Sprite accuracyButtonSprite2;
     public Sprite accuracyButtonSprite3;
     public GameObject accuracyButton;
     private int accuracyPrice = 250;
+
     public Image speedButtonImage;
     public Sprite speedButtonSprite2;
     public Sprite speedButtonSprite3;
     public GameObject speedButton;
     private int speedPrice = 250;
+
+    public GameObject equipPistolButton;
+    public GameObject equipRifleButton;
+    public GameObject equipShotgunButton;
+    public GameObject equipDPButton;
+    public Image equipPistolButtonImage;
+    public Image equipRifleButtonImage;
+    public Image equipShotgunButtonImage;
+    public Image equipDPButtonImage;
+    public Sprite equip;
+    public Sprite equipped;
 
     // Start is called before the first frame update
     void Start()
@@ -38,50 +52,92 @@ public class itemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void buyCarti()
-    {
-        if (logicScript.playerScore >= 20)
+        switch (shootingScript.weaponUsed)
         {
-            logic.addScore(-20);
-            Instantiate(carti);
-            Destroy(cartiButton);
+            case 0:
+                equipPistolButtonImage.sprite = equipped;
+                equipRifleButtonImage.sprite = equip;
+                equipShotgunButtonImage.sprite = equip;
+                equipDPButtonImage.sprite = equip;
+                playerSprite.sprite = playerPistol;
+                break;
+            case 1:
+                equipPistolButtonImage.sprite = equip;
+                equipRifleButtonImage.sprite = equipped;
+                equipShotgunButtonImage.sprite = equip;
+                equipDPButtonImage.sprite = equip;
+                playerSprite.sprite = playerRifle;
+                break;
+            case 2:
+                equipPistolButtonImage.sprite = equip;
+                equipRifleButtonImage.sprite = equip;
+                equipShotgunButtonImage.sprite = equipped;
+                equipDPButtonImage.sprite = equip;
+                playerSprite.sprite = playerShotgun;
+                break;
+            case 3:
+                equipPistolButtonImage.sprite = equip;
+                equipRifleButtonImage.sprite = equip;
+                equipShotgunButtonImage.sprite = equip;
+                equipDPButtonImage.sprite = equipped;
+                playerSprite.sprite = playerDP;
+                break;
         }
     }
-
+    public void equipPistol()
+    {
+        shootingScript.weaponUsed = 0;
+    }
     public void buyRifle()
     {
         if (logicScript.playerScore >= 200)
         {
+            var x = rifleButton.transform.position;          
             logic.addScore(-200);
             playerSprite.sprite = playerRifle;
             shootingScript.weaponUsed = 1;
+            //Instantiate(equipRifleButton, x, Quaternion.identity, shop);
             Destroy(rifleButton);
+            equipRifleButtonImage = GameObject.FindGameObjectWithTag("riflebutton").GetComponent<Image>();
         }
+    }
+    public void equipRifle()
+    {
+        shootingScript.weaponUsed = 1;
     }
     public void buyShotgun()
     {
         if (logicScript.playerScore >= 400)
         {
+            var x = shotgunButton.transform.position;
             logic.addScore(-400);
             playerSprite.sprite = playerShotgun;
             shootingScript.weaponUsed = 2;
+            //Instantiate(equipShotgunButton, x, Quaternion.identity, shop);
             Destroy(shotgunButton);
+            equipShotgunButtonImage = GameObject.FindGameObjectWithTag("shotgunbutton").GetComponent<Image>();
         }
-
+    }
+    public void equipShotgun()
+    {
+        shootingScript.weaponUsed = 2;
     }
     public void buyDoublePistols()
     {
         if (logicScript.playerScore >= 300)
         {
+            var x = doublePistolsButton.transform.position;
             logic.addScore(-300);
             playerSprite.sprite = playerDP;
             shootingScript.weaponUsed = 3;
-            Destroy(doublePistolsButton);
+            //Instantiate(equipDPButton, x, Quaternion.identity, shop);
+            Destroy(doublePistolsButton);       
+            equipDPButtonImage = GameObject.FindGameObjectWithTag("dpbutton").GetComponent<Image>();
         }
-
+    }
+    public void equipDoublePistols()
+    {
+        shootingScript.weaponUsed = 3;
     }
     public void accuracyUpgrade()
     {      
