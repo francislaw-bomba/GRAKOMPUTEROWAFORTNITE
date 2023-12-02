@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class itemManager : MonoBehaviour
 {
     public Transform shop;
-
+    private playerHealthBar playerHealthBar;
     public logicScript logic;
     public SpriteRenderer playerSprite;
     public Sprite playerRifle;
@@ -30,6 +30,12 @@ public class itemManager : MonoBehaviour
     public GameObject speedButton;
     private int speedPrice = 250;
 
+    public Image healButtonImage;
+    public Sprite healButtonSprite2;
+    public Sprite healButtonSprite3;
+    public GameObject healButton;
+    private int healPrice = 250;
+
     public GameObject equipPistolButton;
     public GameObject equipRifleButton;
     public GameObject equipShotgunButton;
@@ -47,6 +53,7 @@ public class itemManager : MonoBehaviour
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();      
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         shootingScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootingScript>();
+        playerHealthBar = GameObject.FindGameObjectWithTag("playerHealthBar").GetComponent<playerHealthBar>();
     }
 
     // Update is called once per frame
@@ -180,6 +187,29 @@ public class itemManager : MonoBehaviour
                 break;
             case 1000:
                 Destroy(speedButton);
+                break;
+        }
+    }
+    public void Heal()
+    {
+        if (logicScript.playerScore >= healPrice && PlayerMovement.playerHealth < 3)
+        {
+            logic.addScore(-healPrice);
+            healPrice = healPrice + 250;
+            PlayerMovement.playerHealth = PlayerMovement.playerHealth + 1;
+            playerHealthBar.updatePlayerHealthBar(PlayerMovement.playerHealth, 3);
+        }
+
+        switch (healPrice)
+        {
+            case 500:
+                healButtonImage.sprite = healButtonSprite2;
+                break;
+            case 750:
+                healButtonImage.sprite = healButtonSprite3;
+                break;
+            case 1000:
+                Destroy(healButton);
                 break;
         }
     }

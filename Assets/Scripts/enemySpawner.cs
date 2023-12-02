@@ -8,7 +8,7 @@ public class enemySpawner : MonoBehaviour
     public GameObject zombie2;
     public Camera cam;
     private float nextSpawnTime = 0f;
-    public float spawnDelay = 3;
+    public float spawnDelay = 3f;
     public PlayerMovement player;
     public int enemyChanceMax = 10;
     private int enemiesSpawned;
@@ -80,7 +80,7 @@ public class enemySpawner : MonoBehaviour
 
     public int getNumbers()
     {
-        if (numbers.Count < 50)
+        if (numbers.Count < 70)
         {
             int x = Random.Range(-40, -15);
             int y = Random.Range(15, 40);

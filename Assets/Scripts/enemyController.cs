@@ -15,6 +15,7 @@ public class enemyController : MonoBehaviour
     public GameObject smallBlood;
     private bool isStunned = false;
     private enemyHealthBar healthBar;
+    private playerHealthBar playerHealthBar;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class enemyController : MonoBehaviour
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerHealthBar = GameObject.FindGameObjectWithTag("playerHealthBar").GetComponent<playerHealthBar>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
@@ -35,7 +37,11 @@ public class enemyController : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             transform.position = new Vector3(transform.position.x, transform.position.y, 1.0f);
-            transform.up = Vector2.MoveTowards(transform.up, target.transform.position, speed * Time.deltaTime);
+            var offset = 90f;
+            Vector2 direction = target.position - transform.position;
+            direction.Normalize();
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
         }
 
         if (enemyHealth <= 0)
@@ -43,10 +49,10 @@ public class enemyController : MonoBehaviour
             logic.addScore(15);
             Instantiate(blood, transform.position, Quaternion.identity);
             Destroy(enemy);
-        }
+        }      
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Bullet"))
         {
@@ -58,10 +64,10 @@ public class enemyController : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
+            PlayerMovement.playerHealth = PlayerMovement.playerHealth - 1;
+            playerHealthBar.updatePlayerHealthBar(PlayerMovement.playerHealth, 3);
             Destroy(enemy);
-            logic.gameOver();
-            playerMovement.isAlive = false;
-            Instantiate(blood, target.transform.position, Quaternion.identity);
+            Instantiate(smallBlood, target.transform.position, Quaternion.identity);
         }
     }
 

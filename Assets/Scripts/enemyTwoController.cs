@@ -15,6 +15,7 @@ public class enemyTwoController : MonoBehaviour
     public GameObject smallBlood;
     private bool isStunned = false;
     private enemyHealthBar healthBar;
+    private playerHealthBar playerHealthBar;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class enemyTwoController : MonoBehaviour
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerHealthBar = GameObject.FindGameObjectWithTag("playerHealthBar").GetComponent<playerHealthBar>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
@@ -58,10 +60,10 @@ public class enemyTwoController : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
+            PlayerMovement.playerHealth = PlayerMovement.playerHealth - 1;
+            playerHealthBar.updatePlayerHealthBar(PlayerMovement.playerHealth, 3);
             Destroy(enemy);
-            logic.gameOver();
-            playerMovement.isAlive = false;
-            Instantiate(blood, target.transform.position, Quaternion.identity);
+            Instantiate(smallBlood, target.transform.position, Quaternion.identity);
         }
     }
 

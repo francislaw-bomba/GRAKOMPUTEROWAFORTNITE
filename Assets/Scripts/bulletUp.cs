@@ -36,7 +36,7 @@ public class bulletUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroy(bullet, 1f);
+        Destroy(bullet, 0.8f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

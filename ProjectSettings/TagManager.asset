@@ -12,6 +12,7 @@ TagManager:
   - riflebutton
   - shotgunbutton
   - dpbutton
+  - playerHealthBar
   layers:
   - Default
   - TransparentFX
