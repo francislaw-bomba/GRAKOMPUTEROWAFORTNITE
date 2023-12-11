@@ -20,14 +20,16 @@ public class ShootingScript : MonoBehaviour
     public Camera kamera;
     public GameObject bulletBoom;
     public GameObject bulletBoom2;
+    public playSound sound;
     public int weaponUsed = 0; // 0 = pistol, 1 = rifle, 2 = shotgun, 3 = double pistols
 
     void Start()
     {
         kamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        sound = GameObject.FindGameObjectWithTag("Logic").GetComponent<playSound>();
         pistolFireRate = 25;
-        rifleFireRate = 10;
+        rifleFireRate = 15;
         shotgunFireRate = 40;
     }
 
@@ -45,6 +47,7 @@ public class ShootingScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && player.isAlive == true && pauseMenu.isPaused == false && pistolFireRateCounter >= pistolFireRate && weaponUsed == 0) 
         {
             Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
+            sound.shootSound();
             Instantiate(bulletBoom, bulletSpawnPoint.position, transform.rotation);
             pistolFireRateCounter = 0;
         }
@@ -52,6 +55,7 @@ public class ShootingScript : MonoBehaviour
         if (Input.GetMouseButton(0) && player.isAlive == true && pauseMenu.isPaused == false && rifleFireRateCounter >= rifleFireRate && weaponUsed == 1)
         {
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            sound.shootSound();
             Instantiate(bulletBoom, rifleBulletSpawnPoint.position, transform.rotation);
             rifleFireRateCounter = 0;
         }
@@ -62,6 +66,7 @@ public class ShootingScript : MonoBehaviour
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
             Instantiate(bullet, rifleBulletSpawnPoint.position, transform.rotation);
+            sound.shootSound();
             Instantiate(bulletBoom, rifleBulletSpawnPoint.position, transform.rotation);
             shotgunFireRateCounter = 0;
         }
@@ -70,6 +75,7 @@ public class ShootingScript : MonoBehaviour
         {
             Instantiate(bullet, doubleBulletSpawnPoint1.position, transform.rotation);
             Instantiate(bullet, doubleBulletSpawnPoint2.position, transform.rotation);
+            sound.shootSound();
             Instantiate(bulletBoom, doubleBulletSpawnPoint1.position, transform.rotation);
             Instantiate(bulletBoom2, doubleBulletSpawnPoint2.position, transform.rotation);
             pistolFireRateCounter = 0;

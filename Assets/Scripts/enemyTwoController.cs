@@ -16,6 +16,7 @@ public class enemyTwoController : MonoBehaviour
     private bool isStunned = false;
     private enemyHealthBar healthBar;
     private playerHealthBar playerHealthBar;
+    public playSound sound;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class enemyTwoController : MonoBehaviour
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
+        sound = GameObject.FindGameObjectWithTag("Logic").GetComponent<playSound>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerHealthBar = GameObject.FindGameObjectWithTag("playerHealthBar").GetComponent<playerHealthBar>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
@@ -37,10 +39,14 @@ public class enemyTwoController : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             transform.position = new Vector3(transform.position.x, transform.position.y, 1.0f);
-            transform.up = Vector2.MoveTowards(transform.up, target.transform.position, speed * Time.deltaTime);
+            var offset = 90f;
+            Vector2 direction = target.position - transform.position;
+            direction.Normalize();
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
         }
 
-        if (enemyHealth <= 0)
+            if (enemyHealth <= 0)
         {
             logic.addScore(50);
             Instantiate(blood, transform.position, Quaternion.identity);
@@ -54,6 +60,7 @@ public class enemyTwoController : MonoBehaviour
         {
             enemyHealth = enemyHealth - 1;
             healthBar.updateHealthBar(enemyHealth, 5);
+            sound.bulletHitSound();
             Stun();
             Instantiate(smallBlood, transform.position, Quaternion.identity);
         }

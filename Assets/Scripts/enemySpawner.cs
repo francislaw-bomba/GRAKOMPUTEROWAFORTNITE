@@ -8,9 +8,9 @@ public class enemySpawner : MonoBehaviour
     public GameObject zombie2;
     public Camera cam;
     private float nextSpawnTime = 0f;
-    public float spawnDelay = 3f;
+    public float spawnDelay = 2.6f;
     public PlayerMovement player;
-    public int enemyChanceMax = 10;
+    public int enemyChanceMax = 9;
     private int enemiesSpawned;
     public List<int> numbers = new List<int>();
 
@@ -47,26 +47,26 @@ public class enemySpawner : MonoBehaviour
             default:
                 break;
             case 15:
-                enemyChanceMax = 9;
-                spawnDelay = 2.5f;
+                enemyChanceMax = 8;
+                spawnDelay = 2.15f;
                 break;
             case 40:
                 enemyChanceMax = 8;
-                spawnDelay = 2.3f;
+                spawnDelay = 2.0f;
                 break;
             case 60:
                 enemyChanceMax = 7;
-                spawnDelay = 2.15f;
+                spawnDelay = 1.85f;
                 break;
             case 90:
                 enemyChanceMax = 6;
-                spawnDelay = 1.8f;
+                spawnDelay = 1.75f;
+                break;
+            case 100:
+                enemyChanceMax = 5;
+                spawnDelay = 1.55f;
                 break;
             case 120:
-                enemyChanceMax = 5;
-                spawnDelay = 1.6f;
-                break;
-            case 150:
                 enemyChanceMax = 4;
                 spawnDelay = 1.3f;
                 break;

@@ -97,10 +97,10 @@ public class itemManager : MonoBehaviour
     }
     public void buyRifle()
     {
-        if (logicScript.playerScore >= 200)
+        if (logicScript.playerScore >= 900)
         {
             var x = rifleButton.transform.position;          
-            logic.addScore(-200);
+            logic.addScore(-900);
             playerSprite.sprite = playerRifle;
             shootingScript.weaponUsed = 1;
             //Instantiate(equipRifleButton, x, Quaternion.identity, shop);
@@ -114,10 +114,10 @@ public class itemManager : MonoBehaviour
     }
     public void buyShotgun()
     {
-        if (logicScript.playerScore >= 400)
+        if (logicScript.playerScore >= 600)
         {
             var x = shotgunButton.transform.position;
-            logic.addScore(-400);
+            logic.addScore(-600);
             playerSprite.sprite = playerShotgun;
             shootingScript.weaponUsed = 2;
             //Instantiate(equipShotgunButton, x, Quaternion.identity, shop);

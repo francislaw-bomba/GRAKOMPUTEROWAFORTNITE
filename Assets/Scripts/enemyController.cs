@@ -15,6 +15,7 @@ public class enemyController : MonoBehaviour
     public GameObject smallBlood;
     private bool isStunned = false;
     private enemyHealthBar healthBar;
+    public playSound sound;
     private playerHealthBar playerHealthBar;
 
     private void Awake()
@@ -25,6 +26,7 @@ public class enemyController : MonoBehaviour
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
+        sound = GameObject.FindGameObjectWithTag("Logic").GetComponent<playSound>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerHealthBar = GameObject.FindGameObjectWithTag("playerHealthBar").GetComponent<playerHealthBar>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
@@ -58,6 +60,7 @@ public class enemyController : MonoBehaviour
         {
             enemyHealth = enemyHealth - 1;
             healthBar.updateHealthBar(enemyHealth, 2);
+            sound.bulletHitSound();
             Stun();
             Instantiate(smallBlood, transform.position, Quaternion.identity);
         }
